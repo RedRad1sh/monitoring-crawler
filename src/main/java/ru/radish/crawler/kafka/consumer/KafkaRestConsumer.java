@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.*;
-import org.apache.kafka.common.security.plain.PlainLoginModule;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +37,7 @@ public class KafkaRestConsumer {
     @Value("${kafka.server}")
     private String server = "";
 
-    @Value("${kafka.username}-default")
+    @Value("${kafka.topic}")
     private String topicName = "";
 
     @Value("${kafka.username}")
@@ -89,11 +88,10 @@ public class KafkaRestConsumer {
         props.put(ConsumerConfig.ISOLATION_LEVEL_CONFIG, "read_uncommitted");
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         props.put("request.timeout.ms", "30000");
-        props.put("bootstrap.servers", "pkc-419q3.us-east4.gcp.confluent.cloud:9092");
         props.put("ssl.endpoint.identification.algorithm", "https");
         props.put("security.protocol", "SASL_SSL");
         props.put("sasl.mechanism", "PLAIN");
-        props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"MRTDBFFKIRFZ3T6V\" password=\"nSfVKChP6GXO8yndwLQuCWj4NBvR7V6o6NOhqxHtlgwyKKnd9Xxk4Lm4j4Kh0194\";");
+        props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"" + username + "\" password=\"" + password + "\";");
 
         return new KafkaConsumer<>(props);
     }
