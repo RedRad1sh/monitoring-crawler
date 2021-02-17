@@ -97,7 +97,7 @@ public class KafkaRestConsumer {
     }
 
     @Scheduled(initialDelay = 50000, fixedDelay = 50000)
-    public void readMessages() throws JsonProcessingException, JSONException {
+    public void readMessages() throws Exception {
         Consumer<String, String> consumer = getConsumer();
         consumer.subscribe(Arrays.asList(topicName));
         ConsumerRecords<String, String> consumerRecords = consumer.poll(30000);
@@ -112,7 +112,7 @@ public class KafkaRestConsumer {
         consumer.close();
     }
 
-    private void extractInfoFromJson(ConsumerRecord<String, String> iteratorRecord) throws JsonProcessingException, JSONException {
+    private void extractInfoFromJson(ConsumerRecord<String, String> iteratorRecord) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         Object jsonObjectFormatted = objectMapper.readValue(iteratorRecord.value().toString(), Object.class);
         JSONObject jsonObject = new JSONObject(iteratorRecord.value().toString());
