@@ -27,9 +27,9 @@ public class CronMaker {
         return cron;
     }
 
-    public static String everyMinute(Date date){
+    public static String everyFiveMinutes(Date date){
         int minutes = getMinutesDate(date);
-        String cron = String.format("* */1 * * * *", minutes);
+        String cron = String.format("* */5 * * * *", minutes);
         return cron;
     }
 

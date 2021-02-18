@@ -33,7 +33,6 @@ public class DemoApplication {
         ScheduleMaker scheduleMaker = applicationContext.getBean(ScheduleMaker.class);
         Map<String, TaskScheduler> schedulers = schedulerInitializer.initializeTaskSchedulers(scheduleMaker);
         DefaultParser.phantomjsPath = applicationContext.getEnvironment().getProperty("phantomjs.path");
-        DefaultParser.getWebDriver();
         kafkaRestConsumer.setTaskSchedulers(schedulers);
         kafkaRestConsumer.setScheduleMaker(scheduleMaker);
         kafkaRestConsumer.readMessages();

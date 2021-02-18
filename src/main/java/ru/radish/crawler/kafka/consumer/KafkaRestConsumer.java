@@ -1,14 +1,12 @@
 package ru.radish.crawler.kafka.consumer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -140,7 +138,7 @@ public class KafkaRestConsumer {
                 }
 
                 Date date = new Date(createDate);
-                String cron = CronMaker.everyMinute(date);
+                String cron = CronMaker.everyFiveMinutes(date);
                 Scheduler scheduler = new Scheduler();
                 scheduler.setTrigger(cron);
 
